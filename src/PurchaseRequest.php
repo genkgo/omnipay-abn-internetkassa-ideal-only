@@ -42,6 +42,10 @@ class PurchaseRequest extends AbstractRequest {
     {
         return $this->setParameter('purchaseID', $value);
     }
+    public function getTransactionReference()
+    {
+        return $this->getParameter('purchaseID');
+    }
     public function getPaymentMethod()
     {
         return $this->getParameter('paymentType');
@@ -90,22 +94,28 @@ class PurchaseRequest extends AbstractRequest {
     }
     public function getData ()
     {
-        $data = parent::getData();
+        $returnUrl = $this->getReturnUrl();
+        $cancelUrl = $this->getCancelUrl();
+        $notifyUrl = $this->getNotifyUrlPath();
+
+        $data = [];
         $data['PSPID'] = $this->getPspId();
         $data['ORDERID'] = $this->getTransactionId();
         $data['AMOUNT'] = $this->getAmountInteger();
         $data['CURRENCY'] = $this->getCurrency();
         $data['LANGUAGE'] = $this->getLanguage();
-        $data['ACCEPTURL'] = $this->getReturnUrl();
-        $data['CANCELURL'] = $this->getCancelUrl();
-        $data['PARAMVAR'] = $this->getNotifyUrlPath();
-        $data['hash'] = $this->generateHash([
-            'AMOUNT' => $this->getAmountInteger(),
-            'CURRENCY' => $this->getCurrency(),
-            'LANGUAGE' => $this->getLanguage(),
-            'ORDERID' => $this->getTransactionId(),
-            'PSPID' => $this->getPspId(),
-        ]);
+        if ($returnUrl) {
+            $data['ACCEPTURL'] = $returnUrl;
+        }
+        if ($cancelUrl) {
+            $data['CANCELURL'] = $cancelUrl;
+            $data['DECLINEURL'] = $cancelUrl;
+            $data['EXCEPTIONURL'] = $cancelUrl;
+        }
+        if ($notifyUrl) {
+            $data['PARAMVAR'] = $notifyUrl;
+        }
+        $data['SHASIGN'] = $this->generateHash($data);
         return $data;
     }
 
@@ -114,9 +124,10 @@ class PurchaseRequest extends AbstractRequest {
     }
 
     private function generateHash ($listOfItems) {
+        ksort($listOfItems);
         $stringToBeHashed = null;
         foreach ($listOfItems as $key => $value)  {
-            $stringToBeHashed .= $key . '=' . $value . $this->getParameter('shaPassPhrase');
+            $stringToBeHashed .= $key . '=' . $value . $this->shaPassPhrase;
         }
         return sha1($stringToBeHashed);
     }

@@ -7,6 +7,11 @@ use Omnipay\Common\Message\RedirectResponseInterface;
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
 
+    public function getTransactionReference()
+    {
+        return $this->request->getTransactionReference();
+    }
+
     public function isSuccessful()
     {
         return true;

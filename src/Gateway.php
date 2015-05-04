@@ -34,17 +34,34 @@ class Gateway extends AbstractGateway
      * @param string $value
      * @return $this
      */
-    public function setShaPassPhrase($value)
+    public function setShaInPassPhrase($value)
     {
-        return $this->setParameter('shaPassPhrase', $value);
+        return $this->setParameter('shaInPassPhrase', $value);
     }
 
     /**
      * @return string
      */
-    public function getShaPassPhrase()
+    public function getShaInPassPhrase()
     {
-        return $this->getParameter('shaPassPhrase');
+        return $this->getParameter('shaInPassPhrase');
+    }
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setShaOutPassPhrase($value)
+    {
+        return $this->setParameter('shaOutPassPhrase', $value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getShaOutPassPhrase()
+    {
+        return $this->getParameter('shaOutPassPhrase');
     }
 
     /**
@@ -63,7 +80,14 @@ class Gateway extends AbstractGateway
         $request->setCurrency('EUR');
         $request->setLanguage('nl_NL');
         $request->setPaymentMethod('ideal');
-        $request->setShaPassPhrase($this->getShaPassPhrase());
+        $request->setShaPassPhrase($this->getShaInPassPhrase());
+        return $request;
+    }
+
+    public function completePurchase (array $parameters = array()) {
+        $request = $this->createRequest(CompletePurchaseRequest::class, $parameters);
+        /* @var $request CompletePurchaseRequest */
+        $request->setShaPassPhrase($this->getShaOutPassPhrase());
         return $request;
     }
 }
