@@ -1,0 +1,13 @@
+{
+    "name" : "genkgo/omnipay-abn-internetkassa-ideal-only",
+    "description" : "Omnipay Gateway to support ABN InternetKassa iDEAL ONLY Kassa",
+    "autoload" : {
+        "psr-4" : {
+            "Omnipay\\AbnInternetKassaIdealOnly\\" : "src"
+        }
+    },
+    "require" : {
+        "php" : ">=5.5",
+        "omnipay/common" : "~2.3.1"
+    }
+}
