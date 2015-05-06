@@ -120,7 +120,7 @@ class PurchaseRequest extends AbstractRequest {
     }
 
     private function getNotifyUrlPath () {
-        return parse_url($this->getReturnUrl(), PHP_URL_PATH);
+        return substr(parse_url($this->getNotifyUrl(), PHP_URL_PATH), 1);
     }
 
     private function generateHash ($listOfItems) {
