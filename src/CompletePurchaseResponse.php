@@ -2,39 +2,10 @@
 namespace Omnipay\AbnInternetKassaIdealOnly;
 
 use Omnipay\Common\Message\AbstractResponse;
-use Omnipay\Common\Message\RedirectResponseInterface;
 
-class CompletePurchaseResponse extends AbstractResponse implements RedirectResponseInterface
+class CompletePurchaseResponse extends AbstractResponse
 {
 
-    /**
-     * {@inheritdoc}
-     */
-    public function isRedirect()
-    {
-        return false;
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function getRedirectUrl()
-    {
-        return null;
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function getRedirectMethod()
-    {
-        return null;
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function getRedirectData()
-    {
-        return null;
-    }
     /**
      * {@inheritdoc}
      */
