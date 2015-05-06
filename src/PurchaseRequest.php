@@ -86,11 +86,11 @@ class PurchaseRequest extends AbstractRequest {
     }
     public function getNotifyUrl()
     {
-        return null;
+        return $this->getParameter('urlNotify');
     }
     public function setNotifyUrl($value)
     {
-        ;
+        return $this->setParameter('urlNotify', $value);
     }
     public function getData ()
     {
