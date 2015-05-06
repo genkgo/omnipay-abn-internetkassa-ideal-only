@@ -29,6 +29,6 @@ in your purchase request (see above). A hidden input field  [PARAMVAR](http://pa
 
 Because ABN Amro urlencodes this field your notifyUrl can only contain one path segment (a slash becomes %2F). If this is a problem for you, 
 change the notify url in the ABN Amro settings panel to ```http://example.com/path-to-payment-hook?target=<PARAMVAR>``` and set the request
-type to GET. Then your <PARAMVAR> contains the urlencoded target GET variable. Now you should be able to make the correct request yourself.
+type to GET. Then your ```<PARAMVAR>``` contains the urlencoded target GET variable. Now you should be able to make the correct request yourself.
 
 Unfortunately, this is how it works, because in my opinion it is best compatible with other omnipay drivers.
