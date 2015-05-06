@@ -97,6 +97,7 @@ class PurchaseRequest extends AbstractRequest {
         $returnUrl = $this->getReturnUrl();
         $cancelUrl = $this->getCancelUrl();
         $notifyUrl = $this->getNotifyUrlPath();
+        $notifyQuery = $this->getNotifyUrlQuery();
 
         $data = [];
         $data['PSPID'] = $this->getPspId();
@@ -115,12 +116,19 @@ class PurchaseRequest extends AbstractRequest {
         if ($notifyUrl) {
             $data['PARAMVAR'] = $notifyUrl;
         }
+        if ($notifyQuery) {
+            $data['PARAMPLUS'] = $notifyQuery;
+        }
         $data['SHASIGN'] = $this->generateHash($data);
         return $data;
     }
 
     private function getNotifyUrlPath () {
         return substr(parse_url($this->getNotifyUrl(), PHP_URL_PATH), 1);
+    }
+
+    private function getNotifyUrlQuery () {
+        return parse_url($this->getNotifyUrl(), PHP_URL_QUERY);
     }
 
     private function generateHash ($listOfItems) {
