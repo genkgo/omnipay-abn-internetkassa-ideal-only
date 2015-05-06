@@ -1,5 +1,5 @@
-# omnipay-abn-internetkassa-ideal-only
-Ogone gateway for omnipay
+# ABN InternetKassa iDEAL Only Kassa driver for Omnipay
+Use Omnipay with Dutch bank ABN.
 
 ## Usage
 
