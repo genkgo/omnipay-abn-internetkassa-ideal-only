@@ -119,6 +119,8 @@ class PurchaseRequest extends AbstractRequest {
         if ($notifyQuery) {
             $data['PARAMPLUS'] = $notifyQuery;
         }
+        $data['PM'] = $this->getPaymentMethod();
+        $data['BRAND'] = $this->getPaymentMethod();
         $data['SHASIGN'] = $this->generateHash($data);
         return $data;
     }

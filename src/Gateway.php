@@ -79,7 +79,7 @@ class Gateway extends AbstractGateway
         }
         $request->setCurrency('EUR');
         $request->setLanguage('nl_NL');
-        $request->setPaymentMethod('ideal');
+        $request->setPaymentMethod('iDEAL');
         $request->setShaPassPhrase($this->getShaInPassPhrase());
         return $request;
     }
