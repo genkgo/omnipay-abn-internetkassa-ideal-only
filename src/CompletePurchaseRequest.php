@@ -21,7 +21,7 @@ class CompletePurchaseRequest extends AbstractRequest {
         if (!isset($data['STATUS'])) {
             throw new InvalidRequestException('Purchase request should contain STATUS');
         }
-        return $this->response = new CompletePurchaseResponse($this, $data);
+        return $this->response = new CompletePurchaseResponse($this, \array_change_key_case($data, \CASE_UPPER));
     }
 
     public function setShaPassPhrase($shaPassPhrase)
